@@ -59,8 +59,6 @@ export default function Home() {
             </div>
             <h1 style={rise(1900)} className="mt-5 font-display text-4xl font-bold leading-[1.05] md:text-6xl">
               Trade like a <span className="text-up">5-figure</span> trader.
-              <br />
-              <span className="text-mute">Allegedly.</span>
             </h1>
             <p style={rise(2000)} className="mt-5 max-w-md text-[15px] leading-relaxed text-mute">
               {COURSES.length} courses, one strategy, several upsells. Start with The Larp Model™, the A+ setup I used to go from broke to <span className="font-semibold text-ink">$13,000/month*</span> trading NQ for 15 minutes a day.
