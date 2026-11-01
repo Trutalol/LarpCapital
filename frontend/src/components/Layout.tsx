@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Award, BarChart3, CandlestickChart, Crown, DollarSign, ExternalLink, LayoutDashboard, PlusSquare, Trophy, User } from 'lucide-react';
+import { Award, BarChart3, CandlestickChart, Crown, DollarSign, ExternalLink, LayoutDashboard, PlusSquare, Sparkles, Trophy, User } from 'lucide-react';
 import { Logo } from './ui';
 import { useApp, xpFor } from '../lib/store';
 import EventLayer from './EventLayer';
@@ -13,6 +13,7 @@ const NAV = [
   { to: '/leaderboard', label: 'Leaderboard', icon: Trophy },
   { to: '/payouts', label: 'Payouts', icon: DollarSign },
   { to: '/certificates', label: 'Certificates', icon: Award },
+  { to: '/studio', label: 'Larp Studio', icon: Sparkles },
   { to: '/profile', label: 'My Profile', icon: User },
 ];
 
