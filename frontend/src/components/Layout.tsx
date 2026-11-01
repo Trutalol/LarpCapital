@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Award, BarChart3, CandlestickChart, DollarSign, LayoutDashboard, PlusSquare, Sparkles, Trophy, User } from 'lucide-react';
+import { Award, BarChart3, CandlestickChart, DollarSign, LayoutDashboard, PlusSquare, ShieldAlert, Sparkles, Trophy, User } from 'lucide-react';
 import { Logo } from './ui';
 import { useApp, xpFor } from '../lib/store';
 import EventLayer from './EventLayer';
@@ -12,6 +12,7 @@ const NAV = [
   { to: '/certificates', label: 'Certificates', icon: Award },
   { to: '/profile', label: 'My Profile', icon: User },
   { to: '/add', label: 'Add Account', icon: PlusSquare },
+  { to: '/scanner', label: 'Red Flag Scanner', icon: ShieldAlert },
 ];
 
 export default function Layout() {

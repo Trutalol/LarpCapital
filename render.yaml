@@ -11,6 +11,8 @@ services:
         value: "22"
       - key: VITE_COURSE_URL
         value: https://larpmodel.onrender.com
+      - key: VITE_SCANNER_API_URL
+        value: https://larp-scan-api.onrender.com
     routes:
       - type: rewrite
         source: /*
@@ -28,3 +30,38 @@ services:
         value: "22"
       - key: VITE_LARPCAPITAL_URL
         value: https://larpcapital.onrender.com
+
+  # Red Flag Scanner, part 1: Render Workflows tasks. scanPost fans out four checks
+  # (hypeCheck, mathCheck, fineprintCheck, aiCheck) as parallel task runs, then scores them.
+  - type: workflow
+    name: larp-scanner
+    runtime: node
+    rootDir: scanner
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # Optional: enables the AI second-opinion check. Leave blank to skip it.
+      - key: GEMINI_API_KEY
+        sync: false
+
+  # Red Flag Scanner, part 2: tiny API that starts scanPost runs for the browser,
+  # so the Render API key never reaches visitors.
+  - type: web
+    name: larp-scan-api
+    runtime: node
+    plan: free
+    rootDir: scanner
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:api
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: RENDER_API_KEY
+        sync: false
+      - key: WORKFLOW_SLUG
+        value: larp-scanner
+      - key: ALLOWED_ORIGINS
+        value: https://larpcapital.onrender.com,http://localhost:5173,http://127.0.0.1:5173

@@ -1,0 +1,22 @@
+{
+  "name": "larp-scanner",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Red Flag Scanner: Render Workflows tasks plus the small API that starts them",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "start:api": "node dist/api.js",
+    "test": "npm run build && node scripts/test-checks.mjs",
+    "sync": "node scripts/sync-checks.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@renderinc/sdk": "^1.6.0",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3"
+  }
+}
