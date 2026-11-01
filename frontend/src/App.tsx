@@ -9,6 +9,7 @@ import Payouts from './pages/Payouts';
 import Certificates from './pages/Certificates';
 import Leaderboard from './pages/Leaderboard';
 import Profile from './pages/Profile';
+import LarpStudio from './pages/LarpStudio';
 import { startEngine } from './lib/store';
 import { startRivals } from './lib/rivals';
 
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/certificates" element={<Certificates />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/studio" element={<LarpStudio />} />
           <Route path="*" element={<Navigate to="/accounts" replace />} />
         </Route>
       </Routes>
