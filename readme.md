@@ -21,7 +21,13 @@ Demo tips: use the speed buttons (1x–60x) on the Trade page, and "Settle day" 
 
 ## Larp Academy (`course-site/`)
 
-Parody trading-course site, linked from the "Buy my course" button in LarpCapital's sidebar: course tiers, Chase Larpington's "A+ strategy", AI lifestyle photos, fake student success stories and a checkout with pre-checked upsells. "Complete purchase" never takes payment (there are no card fields); it reveals the joke, lists real red flags of trading-course scams and links back to LarpCapital.
+Parody trading-course storefront. It's the "Course website" tool in LarpCapital's Larp Studio (`/studio?tool=course`, next to Flex photos), shown in a browser-frame preview with an "Open full site" button. It's a full guru shop: a landing page (Chase Larpington's "A+ strategy", AI lifestyle photos, fake success stories), a course catalog with categories/search/sort, course detail pages (curriculum, instructor, reviews), a cart, a fake checkout (pre-checked upsells, coupon codes LARP / CHASE90 / FREE), an order confirmation that reveals the joke and lists real red flags of trading-course scams, and My Courses: a lesson player with progress, a locked "bonus" lesson that upsells the next course, and a certificate of completion.
+
+Checkout never takes payment (there are no card fields). Cart, purchases and progress live in localStorage (`larp-academy-v1`). Pages use hash routes (`#/courses/larp-model`, `#/library`, ...) so they work under the `/course` proxy and as a static site with no rewrites.
+
+- `src/data.ts`: courses, instructors, curriculum, upsells, coupons, red flags
+- `src/store.ts`: cart / orders / owned courses / lesson progress
+- `src/pages/`: Home, Catalog, CourseDetail, Cart, Checkout, Order, Library, Learn
 
 ```bash
 cd course-site
@@ -33,4 +39,4 @@ In dev, `frontend/vite.config.ts` starts the course-site dev server (port 5175) 
 
 Env vars (build-time): `VITE_API_URL` (Gemini backend: `POST /api/image {scene: "lambo"|"penthouse"|"dubai"|"yacht"|"jet"}` → `{image: "data:image/png;base64,..."}`; gradient placeholders otherwise; CORS must allow the site) and `VITE_LARPCAPITAL_URL` (link back to the main site). Deployed as the second static site in `render.yaml`.
 
-LarpCapital reads `VITE_COURSE_URL` for the sidebar button (defaults to `/course/` in dev).
+LarpCapital reads `VITE_COURSE_URL` for the Larp Studio course tool (defaults to `/course/` in dev).

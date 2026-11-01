@@ -1,5 +1,7 @@
 import { ChangeEvent, DragEvent, useEffect, useRef, useState } from 'react';
-import { Download, Eye, EyeOff, ImagePlus, KeyRound, Loader2, Sparkles, Trash2, Wand2 } from 'lucide-react';
+import { Camera, Download, Eye, EyeOff, GraduationCap, ImagePlus, KeyRound, Loader2, Sparkles, Trash2, Wand2 } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import CourseSiteTool from '../components/CourseSiteTool';
 import { Client } from '@gradio/client';
 import { PageHeader } from '../components/Layout';
 import { Btn, Label, Panel, Tag } from '../components/ui';
@@ -143,7 +145,14 @@ async function generate(key: string, model: string, photo: Photo, prompt: string
   throw new Error(note ?? (reason ? `No image returned (${reason}). Try a different photo or scenario.` : 'No image returned. Try again.'));
 }
 
+const TOOLS = [
+  { id: 'photos', label: 'Flex photos', sub: 'AI lifestyle pics from a selfie', icon: Camera },
+  { id: 'course', label: 'Course website', sub: 'Sell your A+ strategy', icon: GraduationCap },
+] as const;
+
 export default function LarpStudio() {
+  const [params, setParams] = useSearchParams();
+  const tool = params.get('tool') === 'course' ? 'course' : 'photos';
   const [provider, setProvider] = useState<Provider>(() => (readKey(PROVIDER_STORAGE) as Provider) || 'hf');
   const storage = provider === 'hf' ? HF_STORAGE : KEY_STORAGE;
   const [keys, setKeys] = useState(() => ({ hf: readKey(HF_STORAGE), gemini: readKey(KEY_STORAGE) }));
@@ -210,8 +219,28 @@ export default function LarpStudio() {
 
   return (
     <div className="pb-16">
-      <PageHeader title="LARP STUDIO" subtitle="Upload a selfie, pick a flex, let Gemini do the rest. Funded-trader lifestyle, zero funded-trader income." />
-      <div className="mx-10 mt-8 grid max-w-6xl grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-4">
+      <PageHeader title="LARP STUDIO" subtitle="Everything you need to larp as a day trader: flex photos, a course to sell, the lot. Funded-trader lifestyle, zero funded-trader income." />
+      <div className="mx-10 mt-8 flex max-w-6xl gap-2">
+        {TOOLS.map(({ id, label, sub, icon: Icon }) => (
+          <button
+            key={id}
+            onClick={() => setParams(id === 'photos' ? {} : { tool: id })}
+            className={`flex items-center gap-3 rounded-xl border px-4 py-2.5 text-left transition ${tool === id ? 'border-up/60 bg-up/10 text-ink' : 'border-line2 bg-panel text-mute hover:text-ink'}`}
+          >
+            <Icon size={16} className={tool === id ? 'text-up' : ''} />
+            <span>
+              <span className="block text-[12px] font-semibold">{label}</span>
+              <span className="block text-[10px] text-dim">{sub}</span>
+            </span>
+          </button>
+        ))}
+        <div className="flex items-center gap-2 rounded-xl border border-dashed border-line2 px-4 py-2.5 text-[11px] text-dim">
+          <Sparkles size={14} /> More larps soon
+        </div>
+      </div>
+      {tool === 'course' && <CourseSiteTool />}
+      {tool === 'photos' && (
+      <div className="mx-10 mt-6 grid max-w-6xl grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-4">
         <div className="space-y-4">
           <Panel className="p-5">
             <Label>AI provider</Label>
@@ -396,6 +425,7 @@ export default function LarpStudio() {
           <div className="mt-auto pt-4 text-[10px] leading-snug text-dim">AI-generated images. For laughs only; don't use them to mislead anyone.</div>
         </Panel>
       </div>
+      )}
     </div>
   );
 }

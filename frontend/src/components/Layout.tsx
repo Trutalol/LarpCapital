@@ -1,11 +1,8 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Award, BarChart3, CandlestickChart, Crown, DollarSign, ExternalLink, LayoutDashboard, PlusSquare, Sparkles, Trophy, User } from 'lucide-react';
+import { NavLink, Outlet } from 'react-router-dom';
+import { Award, BarChart3, CandlestickChart, DollarSign, LayoutDashboard, PlusSquare, Sparkles, Trophy, User } from 'lucide-react';
 import { Logo } from './ui';
 import { useApp, xpFor } from '../lib/store';
 import EventLayer from './EventLayer';
-
-// The Larp Academy course site (course-site/). In dev it's proxied at /course by vite.config.ts.
-const COURSE_URL = (import.meta.env.VITE_COURSE_URL as string | undefined) ?? (import.meta.env.DEV ? '/course/' : 'https://larpmodel.onrender.com');
 
 const NAV = [
   { to: '/accounts', label: 'Account Summary', icon: LayoutDashboard },
@@ -13,12 +10,11 @@ const NAV = [
   { to: '/leaderboard', label: 'Leaderboard', icon: Trophy },
   { to: '/payouts', label: 'Payouts', icon: DollarSign },
   { to: '/certificates', label: 'Certificates', icon: Award },
-  { to: '/studio', label: 'Larp Studio', icon: Sparkles },
   { to: '/profile', label: 'My Profile', icon: User },
+  { to: '/add', label: 'Add Account', icon: PlusSquare },
 ];
 
 export default function Layout() {
-  const nav = useNavigate();
   const sessionDate = useApp((s) => s.sessionDate);
   return (
     <div className="flex h-screen overflow-hidden bg-bg text-ink">
@@ -43,21 +39,16 @@ export default function Layout() {
           ))}
         </nav>
         <div className="mx-2 my-3 border-t border-line" />
-        <button
-          onClick={() => nav('/add')}
-          className="mx-2 flex items-center gap-2.5 rounded-lg border border-up/50 bg-gradient-to-r from-up/15 to-up/5 px-3 py-2.5 text-[12px] font-semibold text-up hover:from-up/25"
+        <NavLink
+          to="/studio"
+          className={({ isActive }) =>
+            `mx-2 flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-[12px] font-semibold text-warn transition ${
+              isActive ? 'border-warn bg-gradient-to-r from-warn/30 to-warn/10' : 'border-warn/50 bg-gradient-to-r from-warn/15 to-warn/5 hover:from-warn/25'
+            }`
+          }
         >
-          <PlusSquare size={14} /> Add Account
-        </button>
-        <a
-          href={COURSE_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="mx-2 mt-2 flex items-center gap-2.5 rounded-lg border border-warn/50 bg-gradient-to-r from-warn/15 to-warn/5 px-3 py-2.5 text-[12px] font-semibold text-warn hover:from-warn/25"
-        >
-          <Crown size={14} /> Buy my course
-          <ExternalLink size={11} className="ml-auto opacity-60" />
-        </a>
+          <Sparkles size={14} /> Larp Studio
+        </NavLink>
         <div className="mt-auto space-y-2 p-3">
           <div className="rounded-lg border border-line bg-panel p-3">
             <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-dim">
