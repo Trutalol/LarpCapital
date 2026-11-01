@@ -11,3 +11,79 @@ body {
   color: #e7e8eb;
   -webkit-font-smoothing: antialiased;
 }
+
+/* ---------- animations ---------- */
+
+@keyframes la-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes la-page-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes la-candle {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+@keyframes la-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes la-shine {
+  from { transform: translateX(-120%) skewX(-20deg); }
+  to { transform: translateX(260%) skewX(-20deg); }
+}
+@keyframes la-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes la-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.45); }
+  100% { transform: scale(1); }
+}
+@keyframes la-toast {
+  0% { opacity: 0; transform: translate(-50%, 16px); }
+  12%, 85% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, 8px); }
+}
+@keyframes la-confetti {
+  0% { transform: translateY(-20px) rotate(0); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(720deg); opacity: 0.9; }
+}
+@keyframes la-glow {
+  0%, 100% { box-shadow: 0 0 30px rgba(47, 217, 138, 0.2); }
+  50% { box-shadow: 0 0 55px rgba(47, 217, 138, 0.45); }
+}
+@keyframes la-loader-out {
+  to { opacity: 0; visibility: hidden; }
+}
+
+.la-page { animation: la-page-in 0.45s ease-out both; }
+.la-float { animation: la-float 6s ease-in-out infinite; }
+.la-glow { animation: la-glow 2.4s ease-in-out infinite; }
+.la-pop { animation: la-pop 0.45s ease-out; }
+.la-marquee { animation: la-marquee 28s linear infinite; }
+.la-marquee:hover { animation-play-state: paused; }
+
+/* shiny sweep across primary buttons */
+.la-shine { position: relative; overflow: hidden; }
+.la-shine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  animation: la-shine 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* scroll reveal (see <Reveal>) */
+.la-reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+.la-reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  .la-reveal { opacity: 1; transform: none; }
+}

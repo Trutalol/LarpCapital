@@ -4,6 +4,7 @@ import { courseBySlug, money, RED_FLAGS, UPSELLS } from '../data';
 import { go, Link } from '../router';
 import { useStore } from '../store';
 import { Photo } from '../ui';
+import { Confetti, Reveal } from '../motion';
 
 export default function Order({ id }: { id: string }) {
   const order = useStore((s) => s.orders.find((o) => o.id === id));
@@ -22,9 +23,10 @@ export default function Order({ id }: { id: string }) {
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12 md:px-8">
+      {Date.now() - order.at < 10000 && <Confetti />}
       <div className="text-center">
-        <PartyPopper size={36} className="mx-auto text-up" />
-        <h1 className="mt-4 font-display text-3xl font-bold md:text-4xl">You’re enrolled, {order.name.split(' ')[0]}!</h1>
+        <PartyPopper size={36} className="la-pop mx-auto text-up" />
+        <h1 className="mt-4 font-display text-3xl font-bold md:text-4xl">{order.name === 'Future Funded Trader' ? 'You’re enrolled!' : `You’re enrolled, ${order.name.split(' ')[0]}!`}</h1>
         <p className="mt-2 text-mute">Order {order.id} · {new Date(order.at).toLocaleString()}</p>
       </div>
 
@@ -69,7 +71,7 @@ export default function Order({ id }: { id: string }) {
       </div>
 
       {/* the reveal */}
-      <div className="mt-10 rounded-2xl border border-down/40 bg-down/5 p-6">
+      <Reveal delay={300} className="mt-10 rounded-2xl border border-down/40 bg-down/5 p-6">
         <div className="flex items-center gap-2 text-down">
           <AlertTriangle size={18} />
           <span className="font-mono text-[11px] font-bold uppercase tracking-wider">Nothing was charged. Nothing could be.</span>
@@ -95,14 +97,14 @@ export default function Order({ id }: { id: string }) {
           ))}
         </ul>
         <div className="mt-6 flex flex-col gap-2 sm:flex-row">
-          <a href={LARPCAPITAL_URL} target="_top" className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-up py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg hover:brightness-110">
+          <a href={LARPCAPITAL_URL} className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-up py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg hover:brightness-110">
             Trade the sim for free on LarpCapital <ArrowRight size={15} />
           </a>
           <Link to="library" className="flex flex-1 items-center justify-center rounded-xl border border-line2 py-3.5 text-sm font-semibold hover:bg-panel2">
             Go to My Courses anyway
           </Link>
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 }

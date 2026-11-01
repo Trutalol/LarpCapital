@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { Award, BarChart3, CandlestickChart, DollarSign, LayoutDashboard, PlusSquare, Sparkles, Trophy, User } from 'lucide-react';
 import { Logo } from './ui';
 import { useApp, xpFor } from '../lib/store';
@@ -16,6 +16,7 @@ const NAV = [
 
 export default function Layout() {
   const sessionDate = useApp((s) => s.sessionDate);
+  const { pathname } = useLocation();
   return (
     <div className="flex h-screen overflow-hidden bg-bg text-ink">
       <aside className="flex w-[200px] shrink-0 flex-col border-r border-line bg-[#0b0c0e]">
@@ -28,12 +29,12 @@ export default function Layout() {
               key={to}
               to={to}
               className={({ isActive }) =>
-                `flex items-center gap-2.5 rounded-lg border px-3 py-2 text-[12px] font-medium transition ${
+                `group flex items-center gap-2.5 rounded-lg border px-3 py-2 text-[12px] font-medium transition ${
                   isActive ? 'border-line2 bg-panel2 text-ink' : 'border-transparent text-mute hover:text-ink'
                 }`
               }
             >
-              <Icon size={14} />
+              <Icon size={14} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:scale-110" />
               {label}
             </NavLink>
           ))}
@@ -42,7 +43,7 @@ export default function Layout() {
         <NavLink
           to="/studio"
           className={({ isActive }) =>
-            `mx-2 flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-[12px] font-semibold text-warn transition ${
+            `lc-shine mx-2 flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-[12px] font-semibold text-warn transition hover:shadow-[0_0_24px_rgba(245,184,61,0.18)] active:scale-[0.97] ${
               isActive ? 'border-warn bg-gradient-to-r from-warn/30 to-warn/10' : 'border-warn/50 bg-gradient-to-r from-warn/15 to-warn/5 hover:from-warn/25'
             }`
           }
@@ -59,7 +60,9 @@ export default function Layout() {
         </div>
       </aside>
       <main className="relative min-w-0 flex-1 overflow-y-auto">
-        <Outlet />
+        <div key={pathname} className="lc-page h-full">
+          <Outlet />
+        </div>
       </main>
       <EventLayer />
     </div>

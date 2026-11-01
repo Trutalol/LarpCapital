@@ -3,6 +3,14 @@ import { ArrowRight, BadgeCheck, ChevronDown, PlayCircle, Users } from 'lucide-r
 import { COURSES, courseBySlug, money } from '../data';
 import { go, Link } from '../router';
 import { CourseCard, Photo, SectionHead, Stars } from '../ui';
+import { CountUp, Reveal } from '../motion';
+
+// On a fresh page load the hero waits for the loading screen; on in-app navigation it starts right away.
+const BOOT_DELAY = 1800;
+const rise = (ms: number) => {
+  const wait = Math.max(0, BOOT_DELAY - performance.now());
+  return { animation: `la-fade-up 0.7s ease-out ${wait > 0 ? ms : ms - BOOT_DELAY}ms both` };
+};
 
 const STEPS = [
   ['Mark the Asia range', 'Draw the Asia high and low. Do not ask why. Asking why is a beginner mindset.'],
@@ -46,42 +54,46 @@ export default function Home() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_0%,rgba(47,217,138,0.12),transparent_60%)]" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 pb-14 pt-12 md:grid-cols-2 md:px-8 md:pt-20">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-up/40 bg-up/10 px-3 py-1 text-[11px] font-semibold text-up">
+            <div style={rise(1800)} className="inline-flex items-center gap-2 rounded-full border border-up/40 bg-up/10 px-3 py-1 text-[11px] font-semibold text-up">
               <BadgeCheck size={13} /> Taught by a LarpCapital Funded Trader™
             </div>
-            <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] md:text-6xl">
+            <h1 style={rise(1900)} className="mt-5 font-display text-4xl font-bold leading-[1.05] md:text-6xl">
               Trade like a <span className="text-up">5-figure</span> trader.
               <br />
               <span className="text-mute">Allegedly.</span>
             </h1>
-            <p className="mt-5 max-w-md text-[15px] leading-relaxed text-mute">
+            <p style={rise(2000)} className="mt-5 max-w-md text-[15px] leading-relaxed text-mute">
               {COURSES.length} courses, one strategy, several upsells. Start with The Larp Model™, the A+ setup I used to go from broke to <span className="font-semibold text-ink">$13,000/month*</span> trading NQ for 15 minutes a day.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link to="courses" className="rounded-xl bg-up px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg shadow-[0_0_40px_rgba(47,217,138,0.25)] hover:brightness-110">
+            <div style={rise(2100)} className="mt-8 flex flex-wrap items-center gap-3">
+              <Link to="courses" className="la-shine la-glow rounded-xl bg-up px-7 py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg shadow-[0_0_40px_rgba(47,217,138,0.25)] hover:brightness-110">
                 Browse courses
               </Link>
               <button onClick={() => scrollTo('strategy')} className="flex items-center gap-2 rounded-xl border border-line2 px-5 py-3.5 text-sm font-semibold hover:bg-panel2">
                 <PlayCircle size={16} /> See the A+ strategy
               </button>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] text-mute">
+            <div style={rise(2200)} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-[12px] text-mute">
               <span className="flex items-center gap-2"><Stars /> 4.9 (from 3 reviews, all mine)</span>
               <span className="flex items-center gap-1.5"><Users size={13} /> 12,000+ students*</span>
             </div>
             <div className="mt-3 font-mono text-[10px] text-dim">*simulated paper account · one good week · 60x replay speed · “students” includes Discord bots</div>
           </div>
-          <Photo scene="lambo" caption="Morning commute. (Rented for the photo. Also, AI.)" className="aspect-[4/3]" />
+          <div style={rise(2000)}>
+            <Photo scene="lambo" caption="Morning commute. (Rented for the photo. Also, AI.)" className="la-float aspect-[4/3]" />
+          </div>
         </div>
       </section>
 
       {/* as seen on */}
-      <div className="border-y border-line bg-panel/50">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-3 px-4 py-5 md:px-8">
-          <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-dim">As seen on</span>
-          {AS_SEEN.map((s) => (
-            <span key={s} className="font-display text-[13px] font-semibold text-mute">{s}</span>
-          ))}
+      <div className="border-y border-line bg-panel">
+        <div className="flex items-center overflow-hidden py-5">
+          <span className="relative z-10 shrink-0 bg-panel px-5 shadow-[16px_0_16px_#111215] font-mono text-[10px] uppercase tracking-[0.25em] text-dim md:px-8">As seen on</span>
+          <div className="la-marquee flex shrink-0 gap-12 pr-12">
+            {[...AS_SEEN, ...AS_SEEN].map((s, i) => (
+              <span key={i} className="whitespace-nowrap font-display text-[13px] font-semibold text-mute">{s}</span>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -89,8 +101,10 @@ export default function Home() {
       <section className="mx-auto max-w-6xl px-4 py-20 md:px-8">
         <SectionHead kicker="Featured courses" title="Pick your path to funded" sub="Hand-picked by me, from my courses, for you." />
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {FEATURED.map((s) => (
-            <CourseCard key={s} c={courseBySlug(s)!} />
+          {FEATURED.map((s, i) => (
+            <Reveal key={s} delay={i * 120} className="flex">
+              <CourseCard c={courseBySlug(s)!} />
+            </Reveal>
           ))}
         </div>
         <div className="mt-8 text-center">
@@ -106,20 +120,22 @@ export default function Home() {
           <SectionHead kicker="Inside The Larp Model™" title="My A+ strategy, step by step" sub="This is the exact setup. Paying $997 to read it again in a PDF is optional, but recommended." />
           <div className="mt-12 grid gap-4 md:grid-cols-5">
             {STEPS.map(([title, body], i) => (
-              <div key={title} className="rounded-2xl border border-line bg-panel p-5">
+              <Reveal key={title} delay={i * 110} className="rounded-2xl border border-line bg-panel p-5 transition hover:-translate-y-1 hover:border-up/40">
                 <div className="font-display text-3xl font-bold text-up/80">{String(i + 1).padStart(2, '0')}</div>
                 <div className="mt-3 text-sm font-semibold">{title}</div>
                 <div className="mt-2 text-[13px] leading-relaxed text-mute">{body}</div>
-              </div>
+              </Reveal>
             ))}
           </div>
           <div className="mt-8 grid grid-cols-2 gap-4 rounded-2xl border border-line bg-panel p-6 md:grid-cols-4">
-            {[
-              ['$13,000', 'per month*'],
-              ['94%', 'win rate (green days only)'],
-              ['15 min', 'per day (+6 hrs of content)'],
-              ['3', 'spots left, forever'],
-            ].map(([v, k]) => (
+            {(
+              [
+                [<CountUp to={13000} prefix="$" />, 'per month*'],
+                [<CountUp to={94} suffix="%" />, 'win rate (green days only)'],
+                [<CountUp to={15} suffix=" min" />, 'per day (+6 hrs of content)'],
+                [<CountUp to={3} ms={600} />, 'spots left, forever'],
+              ] as const
+            ).map(([v, k]) => (
               <div key={k}>
                 <div className="font-display text-2xl font-bold text-up md:text-3xl">{v}</div>
                 <div className="mt-1 text-[12px] text-mute">{k}</div>
@@ -160,15 +176,15 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-20 md:px-8">
           <SectionHead kicker="Results" title="The lifestyle the model funds" sub="Results not typical. Or real." />
           <div className="mt-12 grid gap-4 md:grid-cols-3">
-            <Photo scene="dubai" caption="Tax residency: vibes." className="aspect-[4/5]" />
-            <Photo scene="yacht" caption="Yacht (booked for 1 hour, 50 min spent filming)." className="aspect-[4/5]" />
-            <Photo scene="jet" caption="Private jet. Parked. We didn’t go anywhere." className="aspect-[4/5]" />
+            <Reveal><Photo scene="dubai" caption="Tax residency: vibes." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
+            <Reveal delay={120}><Photo scene="yacht" caption="Yacht (booked for 1 hour, 50 min spent filming)." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
+            <Reveal delay={240}><Photo scene="jet" caption="Private jet. Parked. We didn’t go anywhere." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
           </div>
 
           <h3 className="mt-20 text-center font-display text-xl font-bold md:text-2xl">Student success stories</h3>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {STORIES.map((s) => (
-              <div key={s.name} className="flex flex-col rounded-2xl border border-line bg-panel p-5">
+            {STORIES.map((s, i) => (
+              <Reveal key={s.name} delay={(i % 3) * 120} className="flex flex-col rounded-2xl border border-line bg-panel p-5">
                 <div className="flex items-center justify-between">
                   <Stars />
                   <span className="rounded border border-up/40 bg-up/10 px-2 py-0.5 font-mono text-[10px] font-bold uppercase text-up">{s.result}</span>
@@ -181,7 +197,7 @@ export default function Home() {
                     <div className="font-mono text-[9px] text-dim/80">fictional</div>
                   </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -205,17 +221,17 @@ export default function Home() {
 
       {/* final cta */}
       <section className="mx-auto max-w-6xl px-4 pb-20 md:px-8">
-        <div className="relative overflow-hidden rounded-3xl border border-up/40 bg-gradient-to-br from-up/15 via-panel to-panel px-6 py-14 text-center md:px-12">
+        <Reveal className="relative overflow-hidden rounded-3xl border border-up/40 bg-gradient-to-br from-up/15 via-panel to-panel px-6 py-14 text-center md:px-12">
           <h2 className="font-display text-2xl font-bold md:text-4xl">Your Lambo is one course away.</h2>
           <p className="mx-auto mt-3 max-w-md text-[15px] text-mute">Or several courses. We have {COURSES.length}. And a mastermind.</p>
           <div className="mt-8 flex items-baseline justify-center gap-3">
             <span className="text-xl text-dim line-through">{money(flagship.was)}</span>
             <span className="font-display text-5xl font-bold text-up">{money(flagship.price)}</span>
           </div>
-          <button onClick={() => go(`courses/${flagship.slug}`)} className="mt-6 rounded-xl bg-up px-8 py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg shadow-[0_0_40px_rgba(47,217,138,0.25)] hover:brightness-110">
+          <button onClick={() => go(`courses/${flagship.slug}`)} className="la-shine la-glow mt-6 rounded-xl bg-up px-8 py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg shadow-[0_0_40px_rgba(47,217,138,0.25)] hover:brightness-110">
             Get The Larp Model™
           </button>
-        </div>
+        </Reveal>
       </section>
     </>
   );

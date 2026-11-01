@@ -46,3 +46,58 @@ select option {
 .flash-down {
   animation: flash-down 2.5s ease-out;
 }
+
+/* ---------- motion ---------- */
+
+@keyframes lc-page-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+@keyframes lc-candle {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+@keyframes lc-load {
+  0% { width: 0; }
+  60% { width: 82%; }
+  100% { width: 99%; }
+}
+@keyframes lc-shine {
+  from { transform: translateX(-150%) skewX(-20deg); }
+  to { transform: translateX(350%) skewX(-20deg); }
+}
+
+/* page transition (Layout keys this on the route; "backwards" so no transform lingers for fixed modals) */
+.lc-page { animation: lc-page-in 0.35s ease-out backwards; }
+
+/* boot screen, in index.html; main.tsx fades it out once the app has mounted */
+#boot {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 50% 42%, rgba(47, 217, 138, 0.1), transparent 60%), #08090b;
+  color: #8a8f99; font: 11px "JetBrains Mono", ui-monospace, monospace;
+  transition: opacity 0.4s ease, visibility 0.4s;
+}
+#boot.done { opacity: 0; visibility: hidden; }
+#boot .c { transform-origin: center; animation: lc-candle 0.9s ease-in-out infinite; }
+#boot .c:nth-child(3) { animation-delay: 0.15s; }
+#boot .c:nth-child(4) { animation-delay: 0.3s; }
+#boot .bar { margin-top: 22px; width: 200px; height: 3px; border-radius: 3px; background: #212329; overflow: hidden; }
+#boot .bar > div { height: 100%; background: #2fd98a; border-radius: 3px; animation: lc-load 1.6s cubic-bezier(.2,.7,.3,1) forwards; }
+#boot .msg { margin-top: 10px; letter-spacing: 0.04em; }
+
+/* gold Larp Studio button shimmer */
+.lc-shine { position: relative; overflow: hidden; }
+.lc-shine::after {
+  content: ''; position: absolute; inset: 0; width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(245, 184, 61, 0.28), transparent);
+  animation: lc-shine 3.5s ease-in-out infinite; pointer-events: none;
+}
+
+/* small press feedback on every enabled button */
+button:not(:disabled) { transition-property: color, background-color, border-color, box-shadow, transform, opacity; }
+button:not(:disabled):active { transform: scale(0.97); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  button:not(:disabled):active { transform: none; }
+}

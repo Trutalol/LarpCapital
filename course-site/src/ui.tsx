@@ -114,9 +114,9 @@ export function CourseCard({ c }: { c: Course }) {
   const owned = useOwned().has(c.slug);
   const who = INSTRUCTORS[c.instructor];
   return (
-    <Link to={`courses/${c.slug}`} className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel transition hover:-translate-y-0.5 hover:border-up/50">
+    <Link to={`courses/${c.slug}`} className="group flex w-full flex-col overflow-hidden rounded-2xl border border-line bg-panel transition duration-300 hover:-translate-y-1 hover:border-up/50 hover:shadow-[0_12px_40px_rgba(47,217,138,0.08)]">
       <div className="relative">
-        <Photo scene={c.scene} className="aspect-[16/10] rounded-none border-0" badge={false} />
+        <Photo scene={c.scene} className="aspect-[16/10] rounded-none border-0 [&_img]:transition [&_img]:duration-700 group-hover:[&_img]:scale-105" badge={false} />
         <div className="absolute inset-0 grid place-items-center opacity-0 transition group-hover:opacity-100">
           <PlayCircle size={44} className="text-white drop-shadow-lg" />
         </div>

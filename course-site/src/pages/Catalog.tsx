@@ -3,6 +3,7 @@ import { Search } from 'lucide-react';
 import { CATEGORIES, COURSES } from '../data';
 import { go } from '../router';
 import { CourseCard } from '../ui';
+import { Reveal } from '../motion';
 
 type Sort = 'popular' | 'price-asc' | 'price-desc' | 'discount';
 
@@ -59,8 +60,10 @@ export default function Catalog({ category }: { category?: string }) {
 
       {list.length ? (
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {list.map((c) => (
-            <CourseCard key={c.slug} c={c} />
+          {list.map((c, i) => (
+            <Reveal key={`${category}-${c.slug}`} delay={(i % 3) * 90} className="flex">
+              <CourseCard c={c} />
+            </Reveal>
           ))}
         </div>
       ) : (

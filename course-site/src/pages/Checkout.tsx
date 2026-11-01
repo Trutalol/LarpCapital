@@ -179,7 +179,7 @@ export default function Checkout() {
             <span className="text-sm text-mute">Total today</span>
             <span className="font-display text-3xl font-bold text-up">{total === 0 ? '$0' : money(total)}</span>
           </div>
-          <button onClick={() => setProcessing(true)} className="mt-4 w-full rounded-xl bg-up py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg transition hover:brightness-110">
+          <button onClick={() => setProcessing(true)} className="la-shine mt-4 w-full rounded-xl bg-up py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg transition hover:brightness-110">
             Complete purchase
           </button>
           <div className="mt-3 flex items-center justify-center gap-1.5 text-[11px] text-dim">

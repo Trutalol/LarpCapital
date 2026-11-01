@@ -88,7 +88,7 @@ export default function CourseDetail({ slug }: { slug: string }) {
                     <div className="mt-2 flex items-center gap-1.5 text-[12px] font-semibold text-down">
                       <Timer size={13} /> Price goes up in <Countdown /> (it doesn’t)
                     </div>
-                    <button onClick={buyNow} className="mt-4 w-full rounded-xl bg-up py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg shadow-[0_0_40px_rgba(47,217,138,0.2)] hover:brightness-110">
+                    <button onClick={buyNow} className="la-shine la-glow mt-4 w-full rounded-xl bg-up py-3.5 font-display text-sm font-bold uppercase tracking-wider text-bg shadow-[0_0_40px_rgba(47,217,138,0.2)] hover:brightness-110">
                       {c.price === 0 ? 'Enroll free' : 'Buy now'}
                     </button>
                     <button
