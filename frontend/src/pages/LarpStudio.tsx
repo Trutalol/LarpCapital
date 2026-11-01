@@ -1,7 +1,8 @@
 import { ChangeEvent, DragEvent, useEffect, useRef, useState } from 'react';
-import { Camera, Download, Eye, EyeOff, GraduationCap, ImagePlus, KeyRound, Loader2, Sparkles, Trash2, Wand2 } from 'lucide-react';
+import { Camera, Clapperboard, Download, Eye, EyeOff, GraduationCap, ImagePlus, KeyRound, Loader2, Sparkles, Trash2, Wand2 } from 'lucide-react';
 import { useSearchParams } from 'react-router-dom';
 import CourseSiteTool from '../components/CourseSiteTool';
+import ReelScriptTool from '../components/ReelScriptTool';
 import { Client } from '@gradio/client';
 import { PageHeader } from '../components/Layout';
 import { Btn, Label, Panel, Tag } from '../components/ui';
@@ -148,11 +149,12 @@ async function generate(key: string, model: string, photo: Photo, prompt: string
 const TOOLS = [
   { id: 'photos', label: 'Flex photos', sub: 'AI lifestyle pics from a selfie', icon: Camera },
   { id: 'course', label: 'Course website', sub: 'Sell your A+ strategy', icon: GraduationCap },
+  { id: 'reel', label: 'Reel script', sub: 'Day in the life, by Gemini', icon: Clapperboard },
 ] as const;
 
 export default function LarpStudio() {
   const [params, setParams] = useSearchParams();
-  const tool = params.get('tool') === 'course' ? 'course' : 'photos';
+  const tool = TOOLS.find((t) => t.id === params.get('tool'))?.id ?? 'photos';
   const [provider, setProvider] = useState<Provider>(() => (readKey(PROVIDER_STORAGE) as Provider) || 'hf');
   const storage = provider === 'hf' ? HF_STORAGE : KEY_STORAGE;
   const [keys, setKeys] = useState(() => ({ hf: readKey(HF_STORAGE), gemini: readKey(KEY_STORAGE) }));
@@ -239,6 +241,7 @@ export default function LarpStudio() {
         </div>
       </div>
       {tool === 'course' && <CourseSiteTool />}
+      {tool === 'reel' && <ReelScriptTool />}
       {tool === 'photos' && (
       <div className="mx-10 mt-6 grid max-w-6xl grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-4">
         <div className="space-y-4">
