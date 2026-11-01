@@ -4,8 +4,8 @@ import { Logo } from './ui';
 import { useApp, xpFor } from '../lib/store';
 import EventLayer from './EventLayer';
 
-// The Larp Model course site (course-site/). Dev server runs on 5175.
-const COURSE_URL = (import.meta.env.VITE_COURSE_URL as string | undefined) ?? (import.meta.env.DEV ? 'http://127.0.0.1:5175' : 'https://larpmodel.onrender.com');
+// The Larp Academy course site (course-site/). In dev it's proxied at /course by vite.config.ts.
+const COURSE_URL = (import.meta.env.VITE_COURSE_URL as string | undefined) ?? (import.meta.env.DEV ? '/course/' : 'https://larpmodel.onrender.com');
 
 const NAV = [
   { to: '/accounts', label: 'Account Summary', icon: LayoutDashboard },

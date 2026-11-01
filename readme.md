@@ -26,9 +26,11 @@ Parody trading-course site, linked from the "Buy my course" button in LarpCapita
 ```bash
 cd course-site
 npm install
-npm run dev     # http://localhost:5175
+npm install     # once; then LarpCapital's `npm run dev` serves it at http://localhost:5173/course/
 ```
+
+In dev, `frontend/vite.config.ts` starts the course-site dev server (port 5175) and proxies `/course` to it, so both sites run from one localhost. `npm run dev` inside `course-site/` still works on its own (http://localhost:5175/course/).
 
 Env vars (build-time): `VITE_API_URL` (Gemini backend: `POST /api/image {scene: "lambo"|"penthouse"|"dubai"|"yacht"|"jet"}` → `{image: "data:image/png;base64,..."}`; gradient placeholders otherwise; CORS must allow the site) and `VITE_LARPCAPITAL_URL` (link back to the main site). Deployed as the second static site in `render.yaml`.
 
-LarpCapital reads `VITE_COURSE_URL` for the sidebar button (defaults to http://127.0.0.1:5175 in dev).
+LarpCapital reads `VITE_COURSE_URL` for the sidebar button (defaults to `/course/` in dev).

@@ -8,7 +8,7 @@ export type Scene = 'lambo' | 'penthouse' | 'dubai' | 'yacht' | 'jet';
 const API = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '');
 
 export const LARPCAPITAL_URL =
-  (import.meta.env.VITE_LARPCAPITAL_URL as string | undefined) ?? (import.meta.env.DEV ? 'http://127.0.0.1:5173' : 'https://larpcapital.onrender.com');
+  (import.meta.env.VITE_LARPCAPITAL_URL as string | undefined) ?? (import.meta.env.DEV ? '/' : 'https://larpcapital.onrender.com');
 
 const cacheKey = (scene: Scene) => `larpmodel-img-${scene}`;
 
