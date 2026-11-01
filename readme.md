@@ -18,3 +18,17 @@ Stack: Vite + React + TypeScript, Tailwind, zustand (state persisted to localSto
 - `src/lib/plans.ts` — LarpFlex / LarpPro evaluation rules
 
 Demo tips: use the speed buttons (1x–60x) on the Trade page, and "Settle day" to roll the session (updates EOD drawdown and the P&L calendar). In dev, `window.__app` / `window.__market` expose the stores.
+
+## Larp Academy (`course-site/`)
+
+Parody trading-course site, linked from the "Buy my course" button in LarpCapital's sidebar: course tiers, Chase Larpington's "A+ strategy", AI lifestyle photos, fake student success stories and a checkout with pre-checked upsells. "Complete purchase" never takes payment (there are no card fields); it reveals the joke, lists real red flags of trading-course scams and links back to LarpCapital.
+
+```bash
+cd course-site
+npm install
+npm run dev     # http://localhost:5175
+```
+
+Env vars (build-time): `VITE_API_URL` (Gemini backend: `POST /api/image {scene: "lambo"|"penthouse"|"dubai"|"yacht"|"jet"}` → `{image: "data:image/png;base64,..."}`; gradient placeholders otherwise; CORS must allow the site) and `VITE_LARPCAPITAL_URL` (link back to the main site). Deployed as the second static site in `render.yaml`.
+
+LarpCapital reads `VITE_COURSE_URL` for the sidebar button (defaults to http://127.0.0.1:5175 in dev).

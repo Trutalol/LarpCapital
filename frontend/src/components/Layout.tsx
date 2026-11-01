@@ -1,8 +1,11 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { Award, BarChart3, CandlestickChart, DollarSign, LayoutDashboard, PlusSquare, Trophy, User } from 'lucide-react';
+import { Award, BarChart3, CandlestickChart, Crown, DollarSign, ExternalLink, LayoutDashboard, PlusSquare, Trophy, User } from 'lucide-react';
 import { Logo } from './ui';
 import { useApp, xpFor } from '../lib/store';
 import EventLayer from './EventLayer';
+
+// The Larp Model course site (course-site/). Dev server runs on 5175.
+const COURSE_URL = (import.meta.env.VITE_COURSE_URL as string | undefined) ?? (import.meta.env.DEV ? 'http://127.0.0.1:5175' : 'https://larpmodel.onrender.com');
 
 const NAV = [
   { to: '/accounts', label: 'Account Summary', icon: LayoutDashboard },
@@ -45,6 +48,15 @@ export default function Layout() {
         >
           <PlusSquare size={14} /> Add Account
         </button>
+        <a
+          href={COURSE_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="mx-2 mt-2 flex items-center gap-2.5 rounded-lg border border-warn/50 bg-gradient-to-r from-warn/15 to-warn/5 px-3 py-2.5 text-[12px] font-semibold text-warn hover:from-warn/25"
+        >
+          <Crown size={14} /> Buy my course
+          <ExternalLink size={11} className="ml-auto opacity-60" />
+        </a>
         <div className="mt-auto space-y-2 p-3">
           <div className="rounded-lg border border-line bg-panel p-3">
             <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-dim">
