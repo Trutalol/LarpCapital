@@ -79,9 +79,9 @@ export default function Payouts() {
             </div>
           </div>
           <div className="flex items-center gap-2 rounded-xl border border-line p-1.5">
-            {verified ? <Tag tone="green">Vibes verified</Tag> : <Tag tone="amber">Not verified</Tag>}
+            {verified ? <Tag tone="green">Verified</Tag> : <Tag tone="amber">Not verified</Tag>}
             <Btn tone="green" onClick={() => setVerified(!verified)}>
-              <UserCheck size={13} /> {verified ? 'Verified (trust me)' : 'ID Verification'}
+              <UserCheck size={13} /> {verified ? 'Verified' : 'ID Verification'}
             </Btn>
           </div>
         </div>

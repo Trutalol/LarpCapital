@@ -103,7 +103,7 @@ function Photo({ scene, caption, className = '' }: { scene: Scene; caption?: str
   return (
     <figure className={`relative overflow-hidden rounded-2xl border border-line2 bg-panel ${className}`}>
       {src ? <img src={src} alt="" className="h-full w-full object-cover" /> : <div className="h-full w-full animate-pulse bg-panel2" />}
-      <span className="absolute left-3 top-3 rounded bg-black/70 px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-up">AI-generated · parody</span>
+      <span className="absolute right-2 top-2 rounded-sm bg-black/50 px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-wide text-ink/70">AI image · parody</span>
       {caption && <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent px-4 pb-3 pt-10 text-sm text-ink">{caption}</figcaption>}
     </figure>
   );
@@ -317,7 +317,7 @@ export default function App() {
                   <div className="grid h-9 w-9 place-items-center rounded-full border border-line2 bg-bg font-display text-sm text-up">{s.name[0]}</div>
                   <div>
                     <div className="text-[13px] font-semibold">{s.name}, {s.age}</div>
-                    <div className="font-mono text-[10px] text-dim">not a real person</div>
+                    <div className="font-mono text-[9px] text-dim/80">fictional</div>
                   </div>
                 </div>
               </div>

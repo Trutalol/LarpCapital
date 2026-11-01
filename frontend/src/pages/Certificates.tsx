@@ -48,7 +48,7 @@ export default function Certificates() {
 
   return (
     <div className="pb-16">
-      <PageHeader title="CERTIFICATES" subtitle="Proof that you did it. Allegedly." />
+      <PageHeader title="CERTIFICATES" subtitle="Your funded trader and payout certificates." />
       <div className="mx-10 mt-8 rounded-2xl border border-line bg-[#0d0e10] p-4">
         <div className="inline-flex rounded-xl border border-line bg-panel p-1">
           {(['all', 'funded', 'payout'] as const).map((f) => (

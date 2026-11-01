@@ -20,7 +20,7 @@ export default function AddAccount() {
 
   return (
     <div className="pb-16">
-      <PageHeader title="ADD ACCOUNT" subtitle="Pick an evaluation. Payment is fake. The suffering is real." />
+      <PageHeader title="ADD ACCOUNT" subtitle="Choose an evaluation plan to get started." />
       <div className="mx-10 mt-8">
         <div className="inline-flex rounded-xl border border-line bg-panel p-1">
           {(['flex', 'pro'] as const).map((f) => (

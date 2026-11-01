@@ -511,7 +511,7 @@ export const useApp = create<AppState>()(
               if (p.status !== 'processing' || Date.now() - p.requestedAt <= 2500) return p;
               const cert: Certificate = { id: uid(), kind: 'payout', name: s.profile.name, title: p.planName, amount: p.net, date: Date.now(), accountId: p.accountId };
               newCerts.push(cert);
-              newEvents.push({ id: uid(), kind: 'payout', title: 'PAYOUT APPROVED', body: `${fmt(p.net)} is on its way (to your imagination).`, accountId: p.accountId, certId: cert.id });
+              newEvents.push({ id: uid(), kind: 'payout', title: 'PAYOUT APPROVED', body: `${fmt(p.net)} has been approved and is on its way.`, accountId: p.accountId, certId: cert.id });
               return { ...p, status: 'paid' as const, paidAt: Date.now(), certId: cert.id };
             });
           }
@@ -586,7 +586,7 @@ export const useApp = create<AppState>()(
           set({
             accounts: s.accounts.map((a) => (a.id === accountId ? updated : a)),
             payouts: [payout, ...s.payouts],
-            events: [...s.events, { id: uid(), kind: 'toast', title: 'Payout requested', body: 'The risk desk is pretending to review it…' }],
+            events: [...s.events, { id: uid(), kind: 'toast', title: 'Payout requested', body: 'Our risk desk is reviewing your request.' }],
           });
         },
 

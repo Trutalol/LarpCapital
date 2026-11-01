@@ -64,7 +64,6 @@ export default function Layout() {
             </div>
             <div className="mt-1 font-mono text-xs text-ink">{sessionDate}</div>
           </div>
-          <div className="px-1 text-[10px] leading-snug text-dim">Simulated paper trading. No real money, no real payouts — just vibes.</div>
         </div>
       </aside>
       <main className="relative min-w-0 flex-1 overflow-y-auto">

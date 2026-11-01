@@ -29,3 +29,20 @@ body {
 select option {
   background: #16171b;
 }
+
+@keyframes flash-up {
+  from {
+    background: rgba(47, 217, 138, 0.22);
+  }
+}
+@keyframes flash-down {
+  from {
+    background: rgba(242, 84, 91, 0.22);
+  }
+}
+.flash-up {
+  animation: flash-up 2.5s ease-out;
+}
+.flash-down {
+  animation: flash-down 2.5s ease-out;
+}

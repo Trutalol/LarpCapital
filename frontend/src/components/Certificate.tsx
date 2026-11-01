@@ -86,11 +86,11 @@ export const CertificateArt = forwardRef<HTMLDivElement, { cert: Cert }>(({ cert
           <div className="text-left">
             {payout && <div className="font-display text-[20px] font-semibold italic text-mute">{fmtDate(cert.date)}</div>}
             <div className="mt-1 font-display text-[17px] tracking-wider text-mute">LARPCAPITAL</div>
-            <div className="mt-2 font-mono text-[10px] tracking-[0.2em] text-dim">SIMULATED PAPER TRADING · NO REAL FUNDS · FOR LARP PURPOSES ONLY</div>
+            <div className="mt-2 font-mono text-[10px] tracking-[0.2em] text-dim">SIMULATED PAPER TRADING · NO REAL FUNDS</div>
           </div>
           <div className="relative text-right">
             <div className="font-script text-[56px] leading-none text-[#e6e8ee]">Larp Capital</div>
-            <div className="mt-1 font-display text-[16px] font-semibold tracking-wider text-[#c9ccd3]">CHIEF LARP OFFICER</div>
+            <div className="mt-1 font-display text-[16px] font-semibold tracking-wider text-[#c9ccd3]">CHIEF RISK OFFICER</div>
           </div>
         </div>
       </div>

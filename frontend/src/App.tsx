@@ -10,9 +10,11 @@ import Certificates from './pages/Certificates';
 import Leaderboard from './pages/Leaderboard';
 import Profile from './pages/Profile';
 import { startEngine } from './lib/store';
+import { startRivals } from './lib/rivals';
 
 export default function App() {
   useEffect(() => startEngine(), []);
+  useEffect(() => startRivals(), []);
   return (
     <BrowserRouter>
       <Routes>

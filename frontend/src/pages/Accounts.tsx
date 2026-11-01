@@ -59,7 +59,7 @@ export default function Accounts() {
           <Empty
             icon={<Wallet size={34} strokeWidth={1.3} />}
             title={accounts.length ? 'No accounts match these filters' : 'No accounts yet'}
-            body={accounts.length ? 'Try a different type or status.' : 'Buy an evaluation with money you don’t have, pass it, and start printing fake payouts.'}
+            body={accounts.length ? 'Try a different type or status.' : 'Start an evaluation, hit the profit target, and get funded.'}
             action={!accounts.length && <Btn tone="green" onClick={() => nav('/add')}>Start an evaluation</Btn>}
           />
         ) : (
