@@ -34,7 +34,7 @@ const AS_SEEN = ['My Group Chat', 'A Discord Server', 'TikTok For You Page', 'My
 const FAQ = [
   ['Is this real?', 'No. It’s a parody made for a hackathon alongside LarpCapital. Nothing here can take your money: checkout has no card fields and never charges anything.'],
   ['Did Chase really make 5 figures a month?', 'On a simulated paper account, during one good week, at 60x replay speed. So: allegedly.'],
-  ['Are those his cars and houses?', 'They’re nobody’s. Every photo on this site is AI-generated.'],
+  ['Are those his cars and houses?', 'They’re not his. Every photo on this site is a stand-in.'],
   ['What happens when I "buy" a course?', 'It shows up in My Courses (saved in your browser), with lessons you can tick off. The last lesson is always locked behind another course. That part is very realistic.'],
   ['What if the strategy doesn’t work for me?', 'Then you didn’t follow the model. (Real gurus say this. Be suspicious of it.)'],
   ['Do you offer refunds?', 'All sales are final, which is easy when there are no sales.'],
@@ -80,7 +80,7 @@ export default function Home() {
             <div className="mt-3 font-mono text-[10px] text-dim">*simulated paper account · one good week · 60x replay speed · “students” includes Discord bots</div>
           </div>
           <div style={rise(2000)}>
-            <Photo scene="lambo" caption="Morning commute. (Rented for the photo. Also, AI.)" className="la-float aspect-[4/3]" />
+            <Photo scene="lambo" caption="Morning commute. (Rented for the photo.)" className="la-float aspect-[4/3]" />
           </div>
         </div>
       </section>
@@ -175,10 +175,11 @@ export default function Home() {
       <section id="results" className="scroll-mt-20 border-y border-line bg-[#0b0c0e]">
         <div className="mx-auto max-w-6xl px-4 py-20 md:px-8">
           <SectionHead kicker="Results" title="The lifestyle the model funds" sub="Results not typical. Or real." />
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            <Reveal><Photo scene="dubai" caption="Tax residency: vibes." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
-            <Reveal delay={120}><Photo scene="yacht" caption="Yacht (booked for 1 hour, 50 min spent filming)." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
-            <Reveal delay={240}><Photo scene="jet" caption="Private jet. Parked. We didn’t go anywhere." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <Reveal><Photo scene="suite" caption="Hotel suite. Checkout was 11am." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
+            <Reveal delay={120}><Photo scene="wheel" caption="Watch on the wheel. Took 40 takes." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
+            <Reveal delay={240}><Photo scene="yacht" caption="Yacht (booked for 1 hour, 50 min spent filming)." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
+            <Reveal delay={360}><Photo scene="jet" caption="Private jet. Parked. We didn’t go anywhere." className="aspect-[4/5] transition duration-500 hover:scale-[1.02]" /></Reveal>
           </div>
 
           <h3 className="mt-20 text-center font-display text-xl font-bold md:text-2xl">Student success stories</h3>

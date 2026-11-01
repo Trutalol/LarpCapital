@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { BadgeCheck, Clock, PlayCircle, Star, Users } from 'lucide-react';
-import { Scene, sceneImage } from './api';
+import { SCENES, Scene } from './api';
 import { Course, INSTRUCTORS, money, openLessons } from './data';
 import { Link } from './router';
 import { useOwned, useStore } from './store';
@@ -40,18 +40,10 @@ export function Countdown() {
 
 /** Lifestyle photo with the parody badge baked into the frame. */
 export function Photo({ scene, caption, className = '', badge = true }: { scene: Scene; caption?: string; className?: string; badge?: boolean }) {
-  const [src, setSrc] = useState<string | null>(null);
-  useEffect(() => {
-    let live = true;
-    sceneImage(scene).then((s) => live && setSrc(s));
-    return () => {
-      live = false;
-    };
-  }, [scene]);
   return (
     <figure className={`relative overflow-hidden rounded-2xl border border-line2 bg-panel ${className}`}>
-      {src ? <img src={src} alt="" className="h-full w-full object-cover" /> : <div className="h-full w-full animate-pulse bg-panel2" />}
-      {badge && <span className="absolute right-2 top-2 rounded-sm bg-black/50 px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-wide text-ink/70">AI image · parody</span>}
+      <img src={SCENES[scene]} alt="" className="h-full w-full object-cover" />
+      {badge && <span className="absolute right-2 top-2 rounded-sm bg-black/50 px-1.5 py-0.5 font-mono text-[8px] uppercase tracking-wide text-ink/70">Parody</span>}
       {caption && <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent px-4 pb-3 pt-10 text-sm text-ink">{caption}</figcaption>}
     </figure>
   );

@@ -121,7 +121,7 @@ export default function App() {
           </div>
           <div className="max-w-2xl text-[12px] leading-relaxed text-dim">
             Larp Academy is a parody of trading-course funnels, made for a hackathon alongside{' '}
-            <a href={LARPCAPITAL_URL} className="text-mute underline hover:text-ink">LarpCapital</a>, a simulated prop firm. No course exists, nothing is for sale, no payment can be taken, every image is AI-generated and every person is made up. Purchases and progress are saved only in your browser. Not financial advice.
+            <a href={LARPCAPITAL_URL} className="text-mute underline hover:text-ink">LarpCapital</a>, a simulated prop firm. No course exists, nothing is for sale, no payment can be taken, every photo is a stand-in and every person is made up. Purchases and progress are saved only in your browser. Not financial advice.
           </div>
         </div>
       </footer>
